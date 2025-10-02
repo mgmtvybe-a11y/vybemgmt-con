@@ -121,12 +121,7 @@ def validate_inputs(contract_path: str, output_dir: str) -> tuple[bool, str]:
     is_flag=True,
     help='분석 비용 추정만 수행 (실제 분석 안함)'
 )
-@click.option(
-    '--api-provider',
-    type=click.Choice(['openai', 'anthropic'], case_sensitive=False),
-    help='사용할 API 제공자 (기본값: 환경변수 기준 자동 선택)'
-)
-def main(contract: str, output: str, verbose: bool, estimate_cost: bool, api_provider: str):
+def main(contract: str, output: str, verbose: bool, estimate_cost: bool):
     """
     인플루언서 계약서 자동 검토 시스템
     
@@ -193,8 +188,8 @@ def main(contract: str, output: str, verbose: bool, estimate_cost: bool, api_pro
         
         # LLM 분석기 초기화
         try:
-            analyzer = LLMAnalyzer(api_provider)
-            click.echo(f"🤖 LLM 분석기 초기화 완료 (Provider: {analyzer.api_provider})")
+            analyzer = LLMAnalyzer()
+            click.echo(f"🤖 LLM 분석기 초기화 완료 (Model: Claude Sonnet 4.5)")
         except Exception as e:
             click.echo(f"❌ LLM 분석기 초기화 실패: {e}", err=True)
             sys.exit(1)

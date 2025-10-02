@@ -281,18 +281,7 @@ def main():
         st.header("⚙️ 설정")
 
         # API 제공자 선택
-        api_provider_option = st.selectbox(
-            "API 제공자",
-            ["자동 선택", "OpenAI", "Anthropic"],
-            help="사용할 AI 모델 제공자를 선택하세요"
-        )
-
-        api_provider = None
-        if api_provider_option == "OpenAI":
-            api_provider = "openai"
-        elif api_provider_option == "Anthropic":
-            api_provider = "anthropic"
-
+        st.info("🤖 AI 모델: Claude Sonnet 4.5 (Anthropic)")
         st.markdown("---")
 
         # API 키 상태 확인
@@ -401,12 +390,12 @@ def main():
 
             # LLM 분석기 초기화
             try:
-                analyzer = LLMAnalyzer(api_provider)
+                analyzer = LLMAnalyzer()
             except Exception as e:
                 st.error(f"❌ LLM 분석기 초기화 실패: {e}")
                 st.stop()
 
-            st.info(f"🤖 사용 모델: {analyzer.api_provider}")
+            st.info(f"🤖 사용 모델: Claude Sonnet 4.5")
 
             # 분석 시작 버튼
             st.markdown("---")
