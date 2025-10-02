@@ -59,8 +59,8 @@ App URL: contract-analyzer
 다음 내용을 복사해서 **실제 API 키**로 교체 후 붙여넣기:
 
 ```toml
-OPENAI_API_KEY = "your-actual-openai-api-key-here"
-LLM_MODEL = "gpt-4o"
+ANTHROPIC_API_KEY = "your-actual-anthropic-api-key-here"
+LLM_MODEL = "claude-sonnet-4-5-20250929"
 API_TIMEOUT = "60"
 MAX_RETRIES = "3"
 USD_TO_KRW_RATE = "1300"

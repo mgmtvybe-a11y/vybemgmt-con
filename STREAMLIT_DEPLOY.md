@@ -37,12 +37,14 @@ https://github.com/mgmtvybe-a11y/vybemgmt-con
 
 4. **Secrets** 탭에서 다음 입력 (실제 API 키로 교체):
 ```toml
-OPENAI_API_KEY = "your-actual-openai-api-key-here"
-LLM_MODEL = "gpt-4o"
+ANTHROPIC_API_KEY = "your-actual-anthropic-api-key-here"
+LLM_MODEL = "claude-sonnet-4-5-20250929"
 API_TIMEOUT = "60"
 MAX_RETRIES = "3"
 USD_TO_KRW_RATE = "1300"
 ```
+
+⚠️ **중요:** Streamlit Cloud에서는 반드시 `KEY = "VALUE"` 형식 (등호 양쪽 공백, 따옴표 필수)
 
 5. **Python version** (선택사항):
    - `3.12` 선택
