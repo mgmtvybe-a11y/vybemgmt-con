@@ -1,42 +1,29 @@
 """
 LLM 분석 엔진 모듈
-다양한 LLM API와 연동하여 계약서 분석을 수행
+Anthropic Claude API와 연동하여 계약서 분석을 수행
 """
 import json
 import logging
 import time
-from typing import Dict, Any, Optional, Tuple
-import openai
+from typing import Dict, Any, Tuple
 import anthropic
 from config.settings import settings
 from config.prompts import PromptTemplate
 
 
 class LLMAnalyzer:
-    """LLM을 사용하여 계약서를 분석하는 클래스"""
-    
-    def __init__(self, api_provider: Optional[str] = None):
-        """
-        LLMAnalyzer 초기화
-        
-        Args:
-            api_provider: 사용할 API 제공자 ('openai' 또는 'anthropic')
-        """
+    """Claude를 사용하여 계약서를 분석하는 클래스"""
+
+    def __init__(self):
+        """LLMAnalyzer 초기화"""
         self.logger = logging.getLogger(__name__)
-        self.api_provider = api_provider or settings.get_api_provider()
         self.client = self._initialize_client()
-    
+
     def _initialize_client(self):
-        """API 클라이언트 초기화"""
+        """Anthropic API 클라이언트 초기화"""
         try:
-            if self.api_provider == 'openai':
-                api_key = settings.get_api_key('openai')
-                return openai.OpenAI(api_key=api_key)
-            elif self.api_provider == 'anthropic':
-                api_key = settings.get_api_key('anthropic')
-                return anthropic.Anthropic(api_key=api_key)
-            else:
-                raise ValueError(f"지원하지 않는 API 제공자: {self.api_provider}")
+            api_key = settings.get_api_key()
+            return anthropic.Anthropic(api_key=api_key)
         except Exception as e:
             self.logger.error(f"API 클라이언트 초기화 실패: {e}")
             raise
@@ -83,150 +70,89 @@ class LLMAnalyzer:
             # 사용자 프롬프트 구성
             user_prompt = PromptTemplate.create_user_prompt(contract_text)
             
-            # LLM API 호출
-            analysis_result = self._call_llm_api(system_prompt, user_prompt)
-            
+            # Claude API 호출
+            analysis_result = self._call_claude_api(system_prompt, user_prompt)
+
             if analysis_result:
                 self.logger.info("계약서 분석 완료")
                 return True, analysis_result
             else:
-                return False, "LLM 분석 중 오류가 발생했습니다."
-                
+                return False, "Claude 분석 중 오류가 발생했습니다."
+
         except Exception as e:
             self.logger.error(f"계약서 분석 실패: {e}")
             return False, f"분석 중 오류 발생: {str(e)}"
-    
-    def _call_llm_api(self, system_prompt: str, user_prompt: str) -> Optional[str]:
+
+    def _call_claude_api(self, system_prompt: str, user_prompt: str) -> str:
         """
-        LLM API 호출 (재시도 로직 포함)
-        
+        Anthropic Claude API 호출 (재시도 로직 포함)
+
         Args:
             system_prompt: 시스템 프롬프트
             user_prompt: 사용자 프롬프트
-            
+
         Returns:
-            Optional[str]: LLM 응답 또는 None
+            str: Claude 응답 텍스트
         """
         for attempt in range(settings.max_retries):
             try:
-                if self.api_provider == 'openai':
-                    return self._call_openai_api(system_prompt, user_prompt)
-                elif self.api_provider == 'anthropic':
-                    return self._call_anthropic_api(system_prompt, user_prompt)
-                else:
-                    raise ValueError(f"지원하지 않는 API 제공자: {self.api_provider}")
-                    
-            except Exception as e:
+                message = self.client.messages.create(
+                    model=settings.llm_model,
+                    max_tokens=4000,
+                    temperature=0.1,
+                    system=system_prompt,
+                    messages=[
+                        {"role": "user", "content": user_prompt}
+                    ],
+                    timeout=settings.api_timeout
+                )
+
+                return message.content[0].text
+
+            except anthropic.RateLimitError as e:
+                self.logger.error(f"Claude API 요금 한도 초과: {e}")
+                raise Exception("API 요금 한도를 확인해주세요.")
+            except anthropic.APIError as e:
                 self.logger.warning(f"API 호출 실패 ({attempt + 1}/{settings.max_retries}): {e}")
                 if attempt < settings.max_retries - 1:
                     time.sleep(2 ** attempt)  # 지수적 백오프
                 else:
                     self.logger.error(f"모든 재시도 실패: {e}")
-                    return None
-    
-    def _call_openai_api(self, system_prompt: str, user_prompt: str) -> str:
-        """
-        OpenAI API 호출
-        
-        Args:
-            system_prompt: 시스템 프롬프트
-            user_prompt: 사용자 프롬프트
-            
-        Returns:
-            str: OpenAI 응답 텍스트
-        """
-        try:
-            response = self.client.chat.completions.create(
-                model=settings.llm_model,
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt}
-                ],
-                temperature=0.1,  # 일관된 분석을 위해 낮은 temperature 사용
-                max_tokens=4000,  # 충분한 응답 길이 확보
-                timeout=settings.api_timeout
-            )
-            
-            content = response.choices[0].message.content
-            if content is None:
-                raise Exception("OpenAI API에서 빈 응답을 받았습니다.")
-            return content
-            
-        except openai.RateLimitError as e:
-            self.logger.error(f"OpenAI API 요금 한도 초과: {e}")
-            raise Exception("API 요금 한도를 확인해주세요.")
-        except openai.APIError as e:
-            self.logger.error(f"OpenAI API 오류: {e}")
-            raise Exception(f"OpenAI API 오류: {str(e)}")
-        except Exception as e:
-            self.logger.error(f"OpenAI API 호출 중 예외 발생: {e}")
-            raise
-    
-    def _call_anthropic_api(self, system_prompt: str, user_prompt: str) -> str:
-        """
-        Anthropic Claude API 호출
-        
-        Args:
-            system_prompt: 시스템 프롬프트
-            user_prompt: 사용자 프롬프트
-            
-        Returns:
-            str: Claude 응답 텍스트
-        """
-        try:
-            message = self.client.messages.create(
-                model="claude-3-5-sonnet-20241022",  # 최신 Claude 모델
-                max_tokens=4000,
-                temperature=0.1,
-                system=system_prompt,
-                messages=[
-                    {"role": "user", "content": user_prompt}
-                ],
-                timeout=settings.api_timeout
-            )
-            
-            return message.content[0].text
-            
-        except anthropic.RateLimitError as e:
-            self.logger.error(f"Claude API 요금 한도 초과: {e}")
-            raise Exception("API 요금 한도를 확인해주세요.")
-        except anthropic.APIError as e:
-            self.logger.error(f"Claude API 오류: {e}")
-            raise Exception(f"Claude API 오류: {str(e)}")
-        except Exception as e:
-            self.logger.error(f"Claude API 호출 중 예외 발생: {e}")
-            raise
+                    raise Exception(f"Claude API 오류: {str(e)}")
+            except Exception as e:
+                self.logger.error(f"Claude API 호출 중 예외 발생: {e}")
+                raise
     
     def estimate_cost(self, contract_text: str, guideline_text: str) -> Dict[str, Any]:
         """
-        분석 비용 추정 (OpenAI 기준)
-        
+        분석 비용 추정 (Claude 기준)
+
         Args:
             contract_text: 계약서 텍스트
             guideline_text: 가이드라인 텍스트
-            
+
         Returns:
             Dict[str, Any]: 비용 추정 정보
         """
         total_text = contract_text + guideline_text
         input_tokens = PromptTemplate.get_token_estimate(total_text)
         output_tokens = 4000  # 예상 출력 토큰
-        
-        # GPT-4 가격 기준 (2024년 기준, 실제 가격은 변동 가능)
-        input_cost_per_1k = 0.03  # $0.03 per 1K input tokens
-        output_cost_per_1k = 0.06  # $0.06 per 1K output tokens
-        
-        input_cost = (input_tokens / 1000) * input_cost_per_1k
-        output_cost = (output_tokens / 1000) * output_cost_per_1k
+
+        # Claude Sonnet 4.5 가격 기준 (2025년 기준)
+        input_cost_per_1m = 3.00  # $3.00 per 1M input tokens
+        output_cost_per_1m = 15.00  # $15.00 per 1M output tokens
+
+        input_cost = (input_tokens / 1000000) * input_cost_per_1m
+        output_cost = (output_tokens / 1000000) * output_cost_per_1m
         total_cost = input_cost + output_cost
-        
+
         return {
             "input_tokens": input_tokens,
             "output_tokens": output_tokens,
             "total_tokens": input_tokens + output_tokens,
             "estimated_cost_usd": round(total_cost, 4),
             "estimated_cost_krw": round(total_cost * settings.usd_to_krw_rate, 0),
-            "api_provider": self.api_provider
+            "api_provider": "anthropic"
         }
     
     def validate_response(self, response: str) -> Tuple[bool, str]:
@@ -266,24 +192,22 @@ def analyze_contract_with_llm(
     guideline_negotiation: str,
     guideline_risk: str,
     gpts_advanced_knowledge: str,
-    redflags_data: Dict[str, Any],
-    api_provider: Optional[str] = None
+    redflags_data: Dict[str, Any]
 ) -> Tuple[bool, str]:
     """
-    계약서를 LLM으로 분석하는 편의 함수
-    
+    계약서를 Claude로 분석하는 편의 함수
+
     Args:
         contract_text: 계약서 텍스트
         guideline_negotiation: 협상 전략 가이드라인
         guideline_risk: 위험 관리 가이드라인
         gpts_advanced_knowledge: GPTs 심화 지식베이스
         redflags_data: 레드플래그 데이터
-        api_provider: API 제공자
-        
+
     Returns:
         Tuple[bool, str]: (성공 여부, 분석 결과)
     """
-    analyzer = LLMAnalyzer(api_provider)
+    analyzer = LLMAnalyzer()
     return analyzer.analyze_contract(
         contract_text, guideline_negotiation, guideline_risk, gpts_advanced_knowledge, redflags_data
     )
