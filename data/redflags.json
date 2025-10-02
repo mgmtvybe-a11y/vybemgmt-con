@@ -1,0 +1,298 @@
+{
+  "red_flags": [
+    {
+      "keyword": "매출 증대 보장",
+      "severity": "critical",
+      "reason": "광고 효과는 보장할 수 없으며 허위/과장 광고에 해당할 수 있음",
+      "category": "성과_보장"
+    },
+    {
+      "keyword": "상위 노출 보장",
+      "severity": "critical",
+      "reason": "검색 결과 노출은 포털 알고리즘에 의해 결정되므로 인위적 조작은 불가능함",
+      "category": "성과_보장"
+    },
+    {
+      "keyword": "해지 불가",
+      "severity": "critical",
+      "reason": "약관법 제9조 '계약 해지권 배제 금지' 위반 소지가 매우 높음",
+      "category": "계약_해지"
+    },
+    {
+      "keyword": "취소 불가능",
+      "severity": "critical",
+      "reason": "약관법 제9조 '계약 해지권 배제 금지' 위반 소지가 매우 높음",
+      "category": "계약_해지"
+    },
+    {
+      "keyword": "영구적 사용",
+      "severity": "critical",
+      "reason": "인플루언서의 핵심 자산을 정당한 대가 없이 양도하는 독소 조항",
+      "category": "저작권"
+    },
+    {
+      "keyword": "기간 제한 없음",
+      "severity": "critical",
+      "reason": "인플루언서의 핵심 자산을 정당한 대가 없이 양도하는 독소 조항",
+      "category": "저작권"
+    },
+    {
+      "keyword": "성과에 따라서만 지급",
+      "severity": "critical",
+      "reason": "통제 불가능한 변수의 리스크를 창작자에게 전가하는 착취적 구조",
+      "category": "성과_보장"
+    },
+    {
+      "keyword": "위약금으로 총액의",
+      "severity": "critical",
+      "reason": "약관법 제8조 위반 소지가 있으며, 실제 분쟁에서 무효로 판단될 가능성이 높음",
+      "category": "위약금"
+    },
+    {
+      "keyword": "신용카드 번호와 유효기간을 먼저 알려주세요",
+      "severity": "critical",
+      "reason": "카드 정보를 알려주는 행위 자체가 계약 체결 동의로 간주되어 즉시 결제가 이루어질 수 있는 매우 위험한 신호",
+      "category": "사기_의심"
+    },
+    {
+      "keyword": "공식대행사",
+      "severity": "high",
+      "reason": "대형 포털이나 공공기관을 사칭하는 경우가 많으므로, 해당 기관의 공식 홈페이지나 고객센터를 통해 반드시 확인 필요",
+      "category": "사기_의심"
+    },
+    {
+      "keyword": "공식지정업체",
+      "severity": "high",
+      "reason": "대형 포털이나 공공기관을 사칭하는 경우가 많으므로, 해당 기관의 공식 홈페이지나 고객센터를 통해 반드시 확인 필요",
+      "category": "사기_의심"
+    },
+    {
+      "keyword": "무상 제공",
+      "severity": "high",
+      "reason": "중도 계약 해지 시, 무상으로 제공되었다던 홈페이지 제작비 등을 과도하게 청구하는 전형적인 함정 수법",
+      "category": "사기_의심"
+    },
+    {
+      "keyword": "무료 제작",
+      "severity": "high",
+      "reason": "중도 계약 해지 시, 무상으로 제공되었다던 홈페이지 제작비 등을 과도하게 청구하는 전형적인 함정 수법",
+      "category": "사기_의심"
+    },
+    {
+      "keyword": "구매 전환 보장",
+      "severity": "critical",
+      "reason": "전환율은 다양한 외부 요인에 영향받아 보장 불가능",
+      "category": "성과_보장"
+    },
+    {
+      "keyword": "ROI 보장",
+      "severity": "critical",
+      "reason": "투자 수익률 보장은 허위광고 소지 및 달성 불가능",
+      "category": "성과_보장"
+    },
+    {
+      "keyword": "무제한 사용",
+      "severity": "critical",
+      "reason": "저작권 침해 및 계약 종료 후 지속 사용 위험",
+      "category": "저작권"
+    },
+    {
+      "keyword": "전속 계약",
+      "severity": "critical",
+      "reason": "인플루언서 활동 자유 과도하게 제약",
+      "category": "전속성"
+    },
+    {
+      "keyword": "위약금 100%",
+      "severity": "critical",
+      "reason": "과도한 위약금으로 약관법상 불공정 조항 해당",
+      "category": "위약금"
+    },
+    {
+      "keyword": "손해배상 무제한",
+      "severity": "critical",
+      "reason": "무제한 배상책임은 계약법상 불공정",
+      "category": "손해배상"
+    },
+    {
+      "keyword": "개인정보 무제한 수집",
+      "severity": "critical",
+      "reason": "개인정보보호법 위반 소지 및 과도한 정보 수집",
+      "category": "개인정보"
+    },
+    {
+      "keyword": "일방적 해지권",
+      "severity": "high",
+      "reason": "계약 당사자 간 권리 불균형으로 불공정",
+      "category": "계약_해지"
+    },
+    {
+      "keyword": "즉시 해지",
+      "severity": "high",
+      "reason": "합리적 통지 기간 없는 즉시 해지는 불공정",
+      "category": "계약_해지"
+    },
+    {
+      "keyword": "성과 미달 시 전액 환불",
+      "severity": "high",
+      "reason": "성과는 객관적 측정이 어려워 분쟁 소지",
+      "category": "성과_보장"
+    },
+    {
+      "keyword": "무조건 성과 달성",
+      "severity": "high",
+      "reason": "달성 불가능한 목표로 허위광고 및 분쟁 위험",
+      "category": "성과_보장"
+    },
+    {
+      "keyword": "모든 매체 사용 가능",
+      "severity": "high",
+      "reason": "사용 범위가 과도하여 저작권 침해 소지",
+      "category": "저작권"
+    },
+    {
+      "keyword": "2차 창작물 권리 포함",
+      "severity": "high",
+      "reason": "파생저작물 권리까지 양도는 과도한 권리 침해",
+      "category": "저작권"
+    },
+    {
+      "keyword": "팔로워 정보 제공",
+      "severity": "high",
+      "reason": "제3자 개인정보 제공으로 개인정보보호법 위반",
+      "category": "개인정보"
+    },
+    {
+      "keyword": "무제한 수정 요구",
+      "severity": "high",
+      "reason": "과도한 수정 요구로 업무 범위 무한 확장",
+      "category": "업무_범위"
+    },
+    {
+      "keyword": "의학적 효능 보장",
+      "severity": "critical",
+      "reason": "의료법, 약사법 위반 소지 및 허위광고",
+      "category": "의료_광고"
+    },
+    {
+      "keyword": "투자 수익 보장",
+      "severity": "critical",
+      "reason": "금융투자업법 위반 및 불법 투자자문 소지",
+      "category": "금융_투자"
+    },
+    {
+      "keyword": "합격률 보장",
+      "severity": "high",
+      "reason": "교육 효과 보장 불가능 및 과대광고 소지",
+      "category": "교육_광고"
+    },
+    {
+      "keyword": "부작용 없음",
+      "severity": "high",
+      "reason": "의료·건강 제품의 부작용 가능성 미고지",
+      "category": "의료_광고"
+    },
+    {
+      "keyword": "원금 보장",
+      "severity": "critical",
+      "reason": "금융상품 원금보장 표현은 금융감독원 제재 대상",
+      "category": "금융_투자"
+    },
+    {
+      "keyword": "무료 체험 후 자동 결제",
+      "severity": "high",
+      "reason": "소비자 기만 및 전자상거래법 위반 소지",
+      "category": "결제_조건"
+    },
+    {
+      "keyword": "취소 불가",
+      "severity": "high",
+      "reason": "소비자기본법상 청약철회권 침해",
+      "category": "소비자_권리"
+    },
+    {
+      "keyword": "환불 불가",
+      "severity": "high",
+      "reason": "전자상거래법상 환불 규정 위반",
+      "category": "소비자_권리"
+    },
+    {
+      "keyword": "경쟁업체 배제 영구",
+      "severity": "high",
+      "reason": "과도한 경업금지로 직업 선택의 자유 침해",
+      "category": "경업금지"
+    },
+    {
+      "keyword": "독점 계약 평생",
+      "severity": "critical",
+      "reason": "평생 독점은 헌법상 직업의 자유 침해",
+      "category": "전속성"
+    },
+    {
+      "keyword": "개인 연락처 공유",
+      "severity": "high",
+      "reason": "개인정보 무단 제공으로 개인정보보호법 위반",
+      "category": "개인정보"
+    },
+    {
+      "keyword": "데이터 자유 활용",
+      "severity": "high",
+      "reason": "개인정보 처리 목적 외 사용 금지 위반",
+      "category": "개인정보"
+    },
+    {
+      "keyword": "SNS 홍보 일체",
+      "severity": "high",
+      "reason": "불분명한 용역 범위로 스코프 크립 위험 발생",
+      "category": "업무_범위"
+    },
+    {
+      "keyword": "Performance-only",
+      "severity": "critical",
+      "reason": "기본 제작비 보장 없이 성과에만 의존하는 착취적 계약 구조",
+      "category": "성과_보장"
+    },
+    {
+      "keyword": "성과 보너스 상한선",
+      "severity": "high",
+      "reason": "성과가 아무리 좋아도 보너스 지급액에 인위적인 상한선을 두는 불공정 조항",
+      "category": "성과_보장"
+    },
+    {
+      "keyword": "충분한 도달",
+      "severity": "medium",
+      "reason": "성과를 판단하는 기준이 주관적이고 데이터 기반이 아님",
+      "category": "성과_측정"
+    },
+    {
+      "keyword": "비현실적인 팔로워 보장",
+      "severity": "high",
+      "reason": "유령 계정이나 해외 계정으로 팔로워 수를 인위적으로 늘려주겠다는 비현실적 제안",
+      "category": "사기_의심"
+    }
+  ],
+  "categories": {
+    "성과_보장": "성과 보장 관련 위험 조항",
+    "계약_해지": "계약 해지 관련 불공정 조항",
+    "저작권": "저작권 및 초상권 침해 조항",
+    "전속성": "과도한 전속 계약 조항",
+    "위약금": "과도한 위약금 관련 조항",
+    "손해배상": "무제한 손해배상 관련 조항",
+    "개인정보": "개인정보보호법 위반 소지 조항",
+    "업무_범위": "업무 범위 불분명 조항",
+    "의료_광고": "의료·건강 관련 허위과대광고 조항",
+    "금융_투자": "금융투자업법 위반 소지 조항",
+    "교육_광고": "교육 관련 과대광고 조항",
+    "결제_조건": "불공정 결제 조건 조항",
+    "소비자_권리": "소비자 권리 침해 조항",
+    "성과_측정": "성과 측정 기준 모호성 조항",
+    "사기_의심": "사기 의심 또는 비현실적 제안 조항",
+    "경업금지": "과도한 경업금지 조항"
+  },
+  "severity_levels": {
+    "critical": "즉시 대응 필요 - 계약 중단 고려",
+    "high": "우선 협상 필요 - 수정 필수",
+    "medium": "검토 필요 - 명확화 요구",
+    "low": "주의 관찰 - 향후 참고사항"
+  }
+}
