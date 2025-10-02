@@ -35,9 +35,9 @@ https://github.com/mgmtvybe-a11y/vybemgmt-con
 
 3. **Advanced settings** 클릭
 
-4. **Secrets** 탭에서 다음 입력:
+4. **Secrets** 탭에서 다음 입력 (실제 API 키로 교체):
 ```toml
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = "your-actual-openai-api-key-here"
 LLM_MODEL = "gpt-4o"
 API_TIMEOUT = "60"
 MAX_RETRIES = "3"

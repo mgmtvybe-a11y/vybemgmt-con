@@ -56,10 +56,10 @@ App URL: contract-analyzer
 
 **"Secrets"** 탭 선택
 
-다음 내용을 **정확히** 복사해서 붙여넣기:
+다음 내용을 복사해서 **실제 API 키**로 교체 후 붙여넣기:
 
 ```toml
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = "your-actual-openai-api-key-here"
 LLM_MODEL = "gpt-4o"
 API_TIMEOUT = "60"
 MAX_RETRIES = "3"
