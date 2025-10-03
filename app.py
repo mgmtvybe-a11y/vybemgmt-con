@@ -290,11 +290,7 @@ def main():
 
         if is_valid:
             st.success("✅ API 키 설정 완료")
-            try:
-                current_provider = api_provider or settings.get_api_provider()
-                st.info(f"사용 중인 제공자: {current_provider}")
-            except:
-                pass
+            st.info("사용 중인 제공자: Anthropic (Claude)")
         else:
             st.error("❌ API 키가 설정되지 않았습니다")
             st.warning(message)
@@ -448,7 +444,7 @@ def main():
                     metadata = {
                         'pdf_info': pdf_info,
                         'analysis_info': {
-                            'api_provider': analyzer.api_provider,
+                            'api_provider': 'anthropic',
                             'model': settings.llm_model,
                             'text_length': len(contract_text)
                         }
